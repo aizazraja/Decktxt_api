@@ -59,4 +59,28 @@ class AuthController extends Controller
             'message' => 'You have successfully logged out and the token was successfully deleted'
         ];
     }
+
+    public function get_data($id)
+    {
+        $device_id = $id;
+        $user = new User;
+        $user->name = 'null';
+        $user->email = 'null';
+        $user->password = 'null';
+        $user->device_id = $device_id;
+        $user->save();
+
+
+        // ([
+        //     'name' => 'null',
+        //     'email' => 'null',
+        //     'password' => 'null',
+        //     'device_id' => $device_id
+        //  ]);
+
+        //$token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()
+            ->json(['data' => $user]); 
+    }
 }
