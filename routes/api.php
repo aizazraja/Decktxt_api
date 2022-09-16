@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register']);
 //API route for login user
 Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login']);
+Route::post('/add_notes', [App\Http\Controllers\API\NotesController::class, 'add_notes']);
+Route::get('/get_notes/{id}', [App\Http\Controllers\API\NotesController::class, 'get_notes']);
 
 Route::get('/get_data/{id}', [App\Http\Controllers\API\AuthController::class, 'get_data']);
 

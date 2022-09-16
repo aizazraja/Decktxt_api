@@ -64,9 +64,9 @@ class AuthController extends Controller
     {
         $device_id = $id;
         $user = new User;
-        $user->name = 'null';
-        $user->email = 'null';
-        $user->password = 'null';
+        $user->name = '';
+        $user->email = '';
+        $user->password = '';
         $user->device_id = $device_id;
         $user->save();
 
@@ -81,6 +81,6 @@ class AuthController extends Controller
         //$token = $user->createToken('auth_token')->plainTextToken;
 
         return response()
-            ->json(['data' => $user]); 
+            ->json(['data' => $user->device_id]); 
     }
 }
