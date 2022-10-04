@@ -58,10 +58,16 @@ class NotesController extends Controller
     public function delete_notes($id)
     {
         $data = DB::table('notes')->delete($id);
-        return $this->success(
-            'Data Deleted successfully!',
-            $data
-        );
+        if($data == '1'){
+            return $this->success(
+                'Data Deleted successfully!',
+                $data
+            );
+        }else{
+            return $this->failure(
+                'Data not deleted!',
+            );
+        }
     }
 
     public function update_notes(Request $request)
