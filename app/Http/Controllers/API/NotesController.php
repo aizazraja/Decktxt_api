@@ -10,6 +10,7 @@ use Auth;
 use Validator;
 use App\Models\User;
 use App\Models\Notes;
+use DB;
 
 class NotesController extends Controller
 {
@@ -26,6 +27,7 @@ class NotesController extends Controller
         ]);
 
         if($validator->fails()){
+         
             return response()->json($validator->errors());       
         }
 
@@ -52,4 +54,46 @@ class NotesController extends Controller
             $data
         );
     }
+
+    public function delete_notes($id)
+    {
+        $data = DB::table('notes')->delete($id);
+        return $this->success(
+            'Data Deleted successfully!',
+            $data
+        );
+    }
+
+    public function update_notes(Request $request)
+    {
+        
+        $validator = Validator::make($request->all(),[
+            'id' => 'required',
+            'device_id' => 'required',
+            'title' => 'required|string|max:25',
+            'description' => 'required|string|max:255',
+                //array('properties' => 'required|min:1'),
+            'properties' => 'required|string|max:255'
+        ]);
+
+        if($validator->fails()){
+         
+            return response()->json($validator->errors());       
+        }
+        //\DB::enableQueryLog();
+         $data= Notes::find($request->id);
+			$data->device_id=$request->device_id;
+            $data->title=$request->title;
+			$data->description=$request->description;
+            $data->properties=$request->properties;
+			$data->save();
+        //dd(\DB::getQueryLog());
+        return $this->success(
+            'Notes updated successfully!',
+            $data
+        );
+    }
 }
+
+
+
