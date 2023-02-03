@@ -17,6 +17,8 @@ class NotesController extends Controller
     use ApiResponse;
     public function add_notes(Request $request)
     {
+         
+
         
         $validator = Validator::make($request->all(),[
             'device_id' => 'required',
